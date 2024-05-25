@@ -38,3 +38,20 @@ def test_create_user_fail_missing_field():
     # test
     response = client.post("/users/", json={"name": "John Doe", "gender": "male", "university": "MIT"})
     assert response.status_code == 422
+
+def test_read_user():
+    user = client.post("/users/", json={"name": "John Doe", "gender": "male", "university": "MIT", "phone": "1234567890"}).json()
+    id = user["id"]
+    response = client.get("/users/1")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == "John Doe"
+    assert data["gender"] == "male"
+    assert data["university"] == "MIT"
+    assert data["phone"] == "1234567890"
+
+    client.delete(f"/users{id}")
+
+def test_read_not_found():
+    response = client.get("/users/1123213241414")
+    assert response.status_code == 404
