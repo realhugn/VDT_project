@@ -80,3 +80,14 @@ def test_update_user_fail_missing_field():
 
     #clean 
     client.delete(f"/users{id}")
+    
+def test_delete_user():
+    user = client.post("/users/", json={"name": "John Doe", "gender": "male", "university": "MIT", "phone": "1234567890"}).json()
+    id = user["id"]
+    response = client.delete(f"/users/{id}")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == "John Doe"
+
+    response = client.get(f"/users/{id}")
+    assert response.status_code == 404
