@@ -55,3 +55,28 @@ def test_read_user():
 def test_read_not_found():
     response = client.get("/users/1123213241414")
     assert response.status_code == 404
+
+def test_update_user():
+    # create a new user
+    user = client.post("/users/", json={"name": "John Doe", "gender": "male", "university": "MIT", "phone": "1234567890"}).json()
+    id = user["id"]
+    response = client.put(f"/users/{id}", json={"name": "Jane Doe", "gender": "female", "university": "Harvard", "phone": "0987654321"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == "Jane Doe"
+    assert data["gender"] == "female"
+    assert data["university"] == "Harvard"
+    assert data["phone"] == "0987654321"
+
+    #clean 
+    client.delete(f"/users{id}")
+
+def test_update_user_fail_missing_field():
+    # test
+    user = client.post("/users/", json={"name": "John Doe", "gender": "male", "university": "MIT", "phone": "1234567890"}).json()
+    id = user["id"]
+    response = client.put(f"/users/{id}", json={"name": "John Doe", "gender": "male", "university": "MIT"})
+    assert response.status_code == 422
+
+    #clean 
+    client.delete(f"/users{id}")
