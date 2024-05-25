@@ -20,6 +20,8 @@ services:
       - "3000:3000"
     depends_on:
       - fastapi_service
+    environment:
+      - DATABASE_URL=http://fastapi_service:8000
     networks:
       - net
 

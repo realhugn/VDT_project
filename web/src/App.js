@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./App.css"
 
+const API_URL = process.env.API_URL || "http://localhost:8000/"
+
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
@@ -16,7 +18,7 @@ const Dashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/users/');
+      const response = await axios.get(`${API_URL}users/`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -25,7 +27,7 @@ const Dashboard = () => {
 
   const addUser = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/users/', {
+      const response = await axios.post(`${API_URL}users/`, {
         name,
         gender,
         university,
@@ -39,7 +41,7 @@ const Dashboard = () => {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/users/${id}`);
+      await axios.delete(`${API_URL}users/${id}`);
       setUsers(users.filter((user) => user.id !== id));
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -48,7 +50,7 @@ const Dashboard = () => {
 
   const updateUser = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/users/${id}`, {
+      await axios.put(`${API_URL}users/${id}`, {
         name,
         gender,
         university,
