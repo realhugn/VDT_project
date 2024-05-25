@@ -18,3 +18,7 @@ def read_user(user_id: int, db: Session = Depends(database.get_db)):
 @router.get("/", response_model=list[schemas.User])
 def read_users(skip: int = 0, limit: int = 50, db: Session = Depends(database.get_db)):
     return user_handler.get_users(db=db, skip=skip, limit=limit)
+
+@router.put("/{user_id}", response_model=schemas.User)
+def update_user(user_id: int, user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    return user_handler.update_user(db=db, user_id=user_id, user=user)
