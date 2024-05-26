@@ -62,3 +62,23 @@ Output câu lệnh build và thông tin docker history của từng image
 ![alt text](image/image8.png)
 
 ![alt text](image/image9.png)
+
+3. Automation
+
+[Source](ansible)
+
+- Viết ansible playbooks để triển khai các image docker của các dịch vụ web, api, db, mỗi dịch vụ 1 role
+ - [common](ansible/roles/common)
+ - [web](ansible/roles/web)
+ - [api](ansible/roles/api)
+ - [db](ansible/roles/db)  
+- Trong từng role cho phép tuỳ biến cấu hình của các dịch vụ thông qua các variables
+ - [common](ansible/roles/common/vars/)
+ - [web](ansible/roles/web/vars/)
+ - [api](ansible/roles/api/vars/)
+ - [db](ansible/roles/db/vars/)  
+- Cho phép triển khai các dịch vụ trên các host khác nhau thông qua file inventory
+
+![alt text](image/image10.png)
+
+
