@@ -1,0 +1,23 @@
+- name: Check if docker network exists
+  docker_network_info:
+    name: "{{ docker_network_name }}"
+  register: docker_network
+  become: true
+
+- name: Create docker network
+  docker_network:
+    name: "{{ docker_network_name }}"
+    state: present
+  when: docker_network.exists == false
+  become: true
+
+- name: Run FastAPI container
+  docker_container:
+    name: "{{ api_container_name }}"
+    image: "{{ api_image_name }}:{{ api_image_tag }}"
+    restart_policy: unless-stopped
+    ports: "{{api_ports}}"
+    env:
+      DATABASE_URL: "{{ env_DATABASE_URL }}"
+    networks:
+      - name: "{{ docker_network_name }}"

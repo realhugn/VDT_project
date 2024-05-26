@@ -21,7 +21,7 @@ services:
     depends_on:
       - fastapi_service
     environment:
-      - DATABASE_URL=http://fastapi_service:8000
+      - REACT_APP_API_URL=http://localhost:8000
     networks:
       - net
 

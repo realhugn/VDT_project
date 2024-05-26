@@ -1,0 +1,7 @@
+docker_network_name: net
+api_image_name: nothung209/vdtapi-fastapi_service
+api_image_tag: latest
+api_container_name: api
+api_ports:
+  - "9000:9000"
+env_DATABASE_URL: postgresql://postgres:123@postgres_container:5432/pythondb

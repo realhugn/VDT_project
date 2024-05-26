@@ -1,0 +1,9 @@
+docker_network_name: net
+postgres_image_name: nothung209/vdtapi-postgres_service
+postgres_image_tag: latest
+postgres_container_name: postgres_container
+postgres_ports:
+  - "5434:5432"
+env_POSTGRES_USER: "pythondb"
+env_POSTGRES_DB: "postgres"
+env_POSTGRES_PASS: "123"

@@ -1,0 +1,6 @@
+docker_network_name: net
+web_image_name: nothung209/vdtapi-web_service
+web_image_tag: latest
+web_container_name: react_container
+web_ports:
+  - "3001:3000"
